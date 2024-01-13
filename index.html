@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spotify - Web Player: Music for everyone</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="utility.css" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <div class="container flex bg-black">
+      <div class="left border bg-black m-1 gap">
+        <img class="invert close" src="img/close.svg" alt="" />
+
+        <div class="home bg-grey rounded">
+          <div class="logo">
+            <img class="invert Spotify" src="img/logo.svg" alt="Logo" />
+          </div>
+          <ul class="pointer">
+            <li><img src="img/home.svg" alt="home" class="invert" />Home</li>
+            <li><img src="img/search.svg" alt="search" class="invert" />Search</li>
+          </ul>
+        </div>
+        <div class="library bg-grey rounded">
+          <div class="heading align-items flex p1">
+            <img class="invert svgs p-1" src="img/playlist.svg" alt="" />
+            <h2 class="p-1">Your Playlist</h2>
+          </div>
+          <div class="songlist">
+            <ul></ul>
+          </div>
+        </div>
+      </div>
+      <div class="right border bg-grey rounded m-1 p-1">
+        <div class="header">
+          <div class="navbar">
+            <div class="flex">
+              <img class="hamburger invert" src="img/hamburger.svg" alt="" />
+              <img class="pointer arrowbtn" src="img/left.svg" alt="" />
+              <img class="pointer arrowbtn" src="img/right.svg" alt="" />
+            </div>
+          </div>
+          <div class="buttons">
+            <button class="signupbtn">Sign Up</button>
+            <button class="loginbtn">Log in</button>
+          </div>
+        </div>
+        <div class="spotify-playlists">
+          <h1 class="p-1">Spotify Playlist</h1>
+          <div class="CardContainer">
+          </div>
+        </div>
+        <div class="playbar">
+          <div class="seekbar-container">
+            <div class="seekbar"></div>
+            <div class="circle-2"></div>
+          </div>
+          <div class="abovebar">
+            <div class="songinfo-2">Song Name</div>
+            <div class="playbtn">
+              <img
+                class="pointer "
+                id="previous"
+                src="img/skip_previous_.svg"
+                alt=""
+              />
+              <img
+                class="pointer "
+                id="play"
+                src="img/play_circle.svg"
+                alt=""
+              />
+              <img
+                class="pointer"
+                id="next"
+                src="img/skip_next_.svg"
+                alt=""
+              />
+            </div>
+            <div class="song-time">
+              00:00/00:00
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
