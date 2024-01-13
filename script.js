@@ -15,7 +15,7 @@ function formatTime(seconds) {
 async function getsongs(folder) {
     currFolder = folder;
     // console.log(currFolder)
-    let a = await fetch(`http://127.0.0.1:3000/Projects/Spotify%20Clone/${folder}/`);
+    let a = await fetch(`/${folder}/`);
     let response = await a.text();
     let div = document.createElement("div");
     div.innerHTML = response;
@@ -36,7 +36,7 @@ function playMusic(track) {
         currentSong.pause();
     }
 
-    let audio = new Audio(`/Projects/Spotify%20Clone/${currFolder}/` + track);
+    let audio = new Audio(`/${currFolder}/` + track);
     currentSong = audio;
     // console.log(currentSong)
     audio.addEventListener("error", (e)=>{
@@ -81,7 +81,7 @@ function createSongElement(song) {
 }
 
 async function displayAlbums(){
-    let a = await fetch(`http://127.0.0.1:3000/Projects/Spotify%20Clone/songs`);
+    let a = await fetch(`/songs`);
     let response = await a.text();
     let div = document.createElement("div");
     div.innerHTML = response;
@@ -95,7 +95,7 @@ async function displayAlbums(){
         if(e.href.includes("/songs/")){
             let folder =e.href.split('/').slice(-2)[0]
             //metadata
-            let a = await fetch(`http://127.0.0.1:3000/Projects/Spotify%20Clone/songs/${folder}/info.json`);
+            let a = await fetch(`/${folder}/info.json`);
             let response = await a.json();
 
             CardContainer.innerHTML = CardContainer.innerHTML + `<div data-folder="${folder}" class="card p-1">
@@ -147,7 +147,7 @@ async function main() {
 
     
 
-    songs = await getsongs(`songs/Salaar`);
+    songs = await getsongs(`songs/Anirudh`);
     playMusic(songs[0], true);
 
     const NumberOfSongs = songs.length;
