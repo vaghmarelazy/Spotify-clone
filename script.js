@@ -79,7 +79,7 @@ function createSongElement(song) {
 }
 
 async function displayAlbums(){
-    let a = await fetch(`/songs/`);
+    let a = await fetch(`https://vaghmarelazy.gothub.io/songs/`);
     let response = await a.text();
     let div = document.createElement("div");
     div.innerHTML = response;
