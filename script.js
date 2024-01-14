@@ -14,8 +14,7 @@ function formatTime(seconds) {
 
 async function getsongs(folder) {
     currFolder = folder;
-    // console.log(currFolder)
-    let a = await fetch(`/${folder}/`);
+    let a = await fetch(`/${currFolder}/`);
     let response = await a.text();
     let div = document.createElement("div");
     div.innerHTML = response;
@@ -24,7 +23,7 @@ async function getsongs(folder) {
     for (let index = 0; index < as.length; index++) {
         const element = as[index];
         if (element.href.endsWith(".mp3")) {
-            songs.push(element.href.split(`/${folder}/`)[1]);
+            songs.push(element.href.split(`/${currFolder}/`)[1]);
         }
     }
     return songs
@@ -38,7 +37,6 @@ function playMusic(track) {
 
     let audio = new Audio(`/${currFolder}/` + track);
     currentSong = audio;
-    // console.log(currentSong)
     audio.addEventListener("error", (e)=>{
         console.error("error loading audio : ", e)
     })
@@ -81,21 +79,23 @@ function createSongElement(song) {
 }
 
 async function displayAlbums(){
-    let a = await fetch(`/songs`);
+    let a = await fetch(`/songs/`);
     let response = await a.text();
     let div = document.createElement("div");
     div.innerHTML = response;
     let anchers = div.getElementsByTagName("a");
+    
     let CardContainer = document.querySelector(".CardContainer")
     
     let array =Array.from(anchers)
         for (let index = 0; index < array.length; index++) {
             const e = array[index];
             
+            
         if(e.href.includes("/songs/")){
             let folder =e.href.split('/').slice(-2)[0]
             //metadata
-            let a = await fetch(`/${folder}/info.json`);
+            let a = await fetch(`/songs/${folder}/info.json`);
             let response = await a.json();
 
             CardContainer.innerHTML = CardContainer.innerHTML + `<div data-folder="${folder}" class="card p-1">
@@ -124,11 +124,9 @@ async function displayAlbums(){
         e.addEventListener("click", async item => {
             
             // songs = await getsongs(`songs/${item.currentTarget.dataset.folder}`)
-            const folder = item.currentTarget.dataset.folder
+            let folder = item.currentTarget.dataset.folder
             songs = await getsongs(`songs/${folder}`)
             playMusic(songs[0])
-
-
 
             let songsUl = document.querySelector(".songlist").getElementsByTagName("ul")[0];
             songsUl.innerHTML = "";
@@ -144,8 +142,6 @@ displayAlbums()
 
 
 async function main() {
-
-    
 
     songs = await getsongs(`songs/Anirudh`);
     playMusic(songs[0], true);
@@ -167,7 +163,6 @@ async function main() {
         }
     });
 
-
     // Add an event listener to seekbar container
     document.querySelector(".seekbar").addEventListener("click", e => {
         if (e.target.classList.contains('circle-2')) return; // Skip if clicked on the circle
@@ -181,12 +176,10 @@ async function main() {
     document.querySelector(".hamburger").addEventListener("click", () => {
         document.querySelector(".left").style.left = "0"
     })
-    
+    //Close the hamburger
     document.querySelector(".close").addEventListener("click", () => {
         document.querySelector(".left").style.left = "-200%"
     })
-
-
 
     play.addEventListener("click", () => {
         if (currentSong.paused || currentSong.ended) {
@@ -210,8 +203,7 @@ async function main() {
     });
     let next = document.getElementById("next")
     next.addEventListener("click", () => {
-        console.log("CLiceked",)
-    
+
         let index = songs.indexOf(currentSong.src.split("/").splice(-1)[0])
         if ((index + 1) < NumberOfSongs) {
             playMusic(songs[index + 1])
@@ -220,11 +212,5 @@ async function main() {
             playMusic(songs[0])
         }
     })
-    
-
-
-
-
-
 }
 main();
